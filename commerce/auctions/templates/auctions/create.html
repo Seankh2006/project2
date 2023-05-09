@@ -1,0 +1,41 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+
+    <form action="{% url 'create' %}" method="POST" >
+        {% csrf_token %}
+        <div>
+            <label>Title</label> <br>
+            <input type="text" name="title"> 
+        </div>
+        <div>
+        <label>Description</label> <br>
+        <input type="text" name="description">
+        </div>
+        <div>
+        <label>Price</label> <br>
+        <input type="number" name="price">
+        </div>
+        <div>
+        <label>Date</label> <br>
+        <input type="date" name="date">
+        </div>
+        <div>
+            <label>Image</label> <br>
+            <input type="text" name="image">
+        </div> <br>
+        <div>
+            <label>Category</label>
+            <select name="e-commerce">
+                {% for option in categorylist %}
+                <option value="{{option}}">{{option}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <input type="submit" name="submit">
+        </div>
+    </form>
+
+{% endblock %}

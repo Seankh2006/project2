@@ -1,0 +1,19 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h1>Listing : {{auctions.title}}</h1>
+<img class="card-img-top" src="{{auctions.img}}" alt="Card image cap" style="width: 100%; height: 50%;">
+<p>{{auctions.description}}</p>
+<p>{{auctions.price}}</p>
+<form action="{% url 'auction' id=auctions.id %}" method="POST">
+    {% csrf_token %}
+    <input type="text" value="Bid" name="bid">
+    <input type="submit" value="Place Bid"> 
+</form>
+
+<h2>Details</h2>
+<ul>
+    <li>Listed by: {{auctions.owner}}</li>
+    <li>Category: {{auctions.categorylist1}}</li>
+  </ul>
+{% endblock %}
