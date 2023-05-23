@@ -1,0 +1,16 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h1>Listing : {list.title}}</h1>
+{{current}}
+
+<img class="card-img-top" src="{{list.img}}" alt="Card image cap" style="width: 100%; height: 50%;">
+<p>{{list.description}}</p>
+<p>{{list.price}}</p>
+
+<h2>Details</h2>
+<ul>
+    <li>Listed by: {{list.owner}}</li>
+    <li>Category: {{list.categorylist1}}</li>
+  </ul>
+{% endblock %}

@@ -4,6 +4,8 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+
+import auctions
 from .models import User, category, listing
 
 
@@ -94,10 +96,33 @@ def displaylist(request):
 
 def auctiondetails(request, id):
     auction1 = listing.objects.get(pk = id)
+    wlist = request.user in auction1.watchlist.all()
+    # if request.method == "POST":
+    #     price1 = request.POST["bid"]
+    #     auction1.price = price1
+    #     auction1.save()
+    return render(request, "auctions/auction.html", {"auctions" : auction1, "watchlist" : wlist})
 
-    if request.method == "POST":
-        price = request.POST["bid"]
-        category5 = request.POST["e-commerce"]
-        price1 = listing(price = price, category1 = category.objects.get())
-        price1.save()
-    return render(request, "auctions/auction.html", {"auctions" : auction1})
+def lists(request, id):
+    auction1 = listing.objects.get(pk = id)
+    currentuser = request.user
+    auction1.watchlist.add(currentuser)
+    wlist = request.user in auction1.watchlist.all()
+    return render(request, "auctions/auction.html", {"auctions" : auction1, "watchlist" : wlist})
+
+def remove(request, id):
+    auction1 = listing.objects.get(pk = id)
+    currentuser = request.user
+    auction1.watchlist.remove(currentuser)
+    wlist = request.user in auction1.watchlist.all()
+    return render(request, "auctions/auction.html", {"auctions" : auction1, "watchlist" : wlist})
+
+def watchlist1(request, id):
+    
+    currentuser = request.user
+    list = currentuser.watchlist2.all()
+    return render(request, "auctions/watchlist.html", {"current" : currentuser, "list" : list})
+
+
+
+

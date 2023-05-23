@@ -18,6 +18,7 @@ class listing(models.Model):
     img = models.CharField(max_length=1000)
     categorylist1 = models.ForeignKey(category, on_delete=models.CASCADE, blank=True, null=True, related_name="category")
     owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name="owner")
+    watchlist = models.ManyToManyField(User, blank=True, null=True, related_name="watchlist2")
     def __str__(self):
         return self.title
 
