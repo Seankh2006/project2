@@ -32,6 +32,19 @@
 </div>
 
 {% endfor %}
+<div>
+  <p>Comments:</p>
+  {% for comments in comment %}
+    <p>{{comments.name}}</p>
+    <p>{{comments.listing}}</p>
+    <p>{{comments.message}}</p>
+  {% endfor %}
+  <form method="POST" action="{% url 'comments' id=auctions.id%}">
+    {% csrf_token %}
+    <input type="text" name="textbox">
+    <button type="submit">Add comment!</button>
+  </form>
+</div>
 </div>
 
 {% endblock %}

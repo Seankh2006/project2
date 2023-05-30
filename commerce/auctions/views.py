@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.urls import reverse
 
 import auctions
-from .models import User, category, listing
+from .models import User, category, listing, command
 
 
 def index(request):
@@ -117,12 +117,17 @@ def remove(request, id):
     wlist = request.user in auction1.watchlist.all()
     return render(request, "auctions/auction.html", {"auctions" : auction1, "watchlist" : wlist})
 
-def watchlist1(request, id):
-    
+def watchlist1(request):
     currentuser = request.user
     list = currentuser.watchlist2.all()
     return render(request, "auctions/watchlist.html", {"current" : currentuser, "list" : list})
 
-
+def comments(request, id):
+    name1 = request.user
+    listing2 = listing.objects.get(pk = id)
+    message1 = request.POST["textbox"]
+    createcomment = command(name = name1, listing = listing2, message = message1)
+    createcomment.save()
+    return render(request, "auctions/auction.html", {"comment" : createcomment})
 
 

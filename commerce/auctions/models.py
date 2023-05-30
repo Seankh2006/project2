@@ -22,4 +22,10 @@ class listing(models.Model):
     def __str__(self):
         return self.title
 
+class command(models.Model):
+    name = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name="name")
+    listing = models.ForeignKey(listing, on_delete=models.CASCADE, blank=True, null=True, related_name="listing")
+    message = models.CharField(max_length=1000)
+    def __str__(self):
+        return self.name
 
