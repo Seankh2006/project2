@@ -1,0 +1,38 @@
+{% extends "auctions/layout.html" %}
+
+{% block body%}
+
+<h1>Listing : </h1>
+<p>Choose a category!</p>
+<form action="{% url 'display' %}" method="POST">
+  {% csrf_token %}
+  <select name="e-commerce">
+    {% for option in list %}
+    <option value="{{option.categorylist}}">{{option.categorylist}}</option>
+    {% endfor %}
+  </select>
+  <input type="submit">
+</form>
+<div style="display: flex; margin: 20px;">
+{% for list in activelisting %}
+
+<div class="card" style="width: 18rem; margin: 20px">
+    <img class="card-img-top" src="{{list.img}}" alt="Card image cap" style="width: 100%; height: 50%;">
+    <div class="card-body">
+      <h5 class="card-title">{{list.title}}</h5>
+      <p class="card-text">{{list.description}}</p>
+      <p class="card-text">{{list.price}}</p>
+      <ul>
+        <li>Listed by: {{list.owner}}</li>
+        <li>Category: {{list.categorylist1}}</li>
+      </ul>
+     <a href="{% url 'auctions' id=list.id %}"><input type="button" value="Auction"></a>
+     <a href="{% url 'closebid' id=list.id %}"><input type="button" value="Close Bid"></a>
+      <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+    </div>
+</div>
+
+{% endfor %}
+
+
+{% endblock %}

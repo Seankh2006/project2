@@ -1,0 +1,22 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+{% for wlist in list %}
+
+
+<div class="card" style="width: 18rem; margin: 20px">
+  <img class="card-img-top" src="{{wlist.img}}" alt="Card image cap" style="width: 100%; height: 50%;">
+  <div class="card-body">
+    <h5 class="card-title">{{wlist.title}}</h5>
+    <p class="card-text">{{wlist.description}}</p>
+    <p class="card-text">{{wlist.price}}</p>
+    <ul>
+      <li>Listed by: {{wlist.owner}}</li>
+      <li>Category: {{wlist.categorylist1}}</li>
+    </ul>
+  </div>
+</div>
+
+{% endfor %}
+{% endblock %}

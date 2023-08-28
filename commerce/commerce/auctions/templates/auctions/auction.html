@@ -1,0 +1,57 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h1>Listing : {{auctions.title}}</h1>
+
+{% if user.is_authenticated %}
+  {% if watchlist %}
+    <form action="{% url 'remove' id=auctions.id %}", method="POST">
+      {% csrf_token %}
+      <button type="submit">remove</button>
+    </form>
+  {% else %}
+    <form action="{% url 'lists' id=auctions.id %}", method="POST"> 
+      {% csrf_token %}
+      <button type="submit">watchlist</button>
+    </form>
+  {% endif %}
+{% endif %}
+<div>
+  <div class="card" style="width: 18rem; margin: 20px">
+    <img class="card-img-top" src="{{auctions.img}}" alt="Card image cap" style="width: 100%; height: 50%;">
+    <div class="card-body">
+      <h5 class="card-title">{{auctions.title}}</h5>
+      <p class="card-text">{{auctions.description}}</p>
+      <p class="card-text">{{auctions.price}}</p>
+      <ul>
+        <li>Listed by: {{auctions.owner}}</li>
+        <li>Category: {{auctions.categorylist1}}</li>
+      </ul>
+    </div>  
+  </div>
+
+  <form action="{% url 'auctions' id=auctions.id %}" method="POST">
+    {% csrf_token %}
+    <input type="text" value="Bid" name="bid">
+    <input type="submit" value="Place Bid"> 
+  </form>
+  {{message}}
+  <div>
+    <p>Comments:</p>
+    {% for comments in comment %}
+      <p>{{comments.name}}</p>
+      <p>{{comments.listing}}</p>
+      <p>{{comments.message}}</p>
+    {% endfor %}
+    <form method="POST" action="{% url 'comments' id=auctions.id%}">
+      {% csrf_token %}
+      <input type="text" name="textbox">
+      <button type="submit">Add comment!</button>
+    </form>
+  </div>
+</div>
+
+
+
+
+{% endblock %}
